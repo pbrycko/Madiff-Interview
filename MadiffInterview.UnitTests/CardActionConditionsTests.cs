@@ -12,7 +12,7 @@ namespace MadiffInterview.UnitTests
             // Act
             var result = conditions.SatisfiedBy(card);
 
-            // Arrange
+            // Assert
             result.Should().BeFalse();
         }
 
@@ -28,7 +28,7 @@ namespace MadiffInterview.UnitTests
             // Act
             var result = conditions.SatisfiedBy(card);
 
-            // Arrange
+            // Assert
             result.Should().BeTrue();
         }
 
@@ -44,7 +44,7 @@ namespace MadiffInterview.UnitTests
             // Act
             var result = conditions.SatisfiedBy(card);
 
-            // Arrange
+            // Assert
             result.Should().BeTrue();
         }
 
@@ -59,7 +59,7 @@ namespace MadiffInterview.UnitTests
             // Act
             var result = conditions.SatisfiedBy(card);
 
-            // Arrange
+            // Assert
             result.Should().BeFalse();
         }
 
@@ -74,7 +74,7 @@ namespace MadiffInterview.UnitTests
             // Act
             var result = conditions.SatisfiedBy(card);
 
-            // Arrange
+            // Assert
             result.Should().BeFalse();
         }
 
@@ -92,7 +92,7 @@ namespace MadiffInterview.UnitTests
             // Act
             var result = conditions.SatisfiedBy(card);
 
-            // Arrange
+            // Assert
             result.Should().BeTrue();
         }
 
@@ -110,7 +110,7 @@ namespace MadiffInterview.UnitTests
             // Act
             var result = conditions.SatisfiedBy(card);
 
-            // Arrange
+            // Assert
             result.Should().BeFalse();
         }
     }
