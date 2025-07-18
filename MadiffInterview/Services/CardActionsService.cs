@@ -16,6 +16,10 @@
         }
 
         public IEnumerable<CardAction> GetActionsForCard(CardDetails cardDetails)
-            => _actions.Where(action => action.IsCardAllowed(cardDetails));
+        {
+            ArgumentNullException.ThrowIfNull(cardDetails);
+
+            return _actions.Where(action => action.IsCardAllowed(cardDetails));
+        }
     }
 }

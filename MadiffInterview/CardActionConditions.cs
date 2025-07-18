@@ -13,6 +13,8 @@
 
         public CardActionConditions AllowCardStatus(CardStatus cardStatus, Func<CardDetails, bool> additionalCondition)
         {
+            ArgumentNullException.ThrowIfNull(additionalCondition);
+
             _allowedCardStatuses.Add(cardStatus, additionalCondition);
             return this;
         }
