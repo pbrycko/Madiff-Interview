@@ -17,6 +17,7 @@ namespace MadiffInterview
 
         private static void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging();
             services.TryAddSingleton<CardService>();
         }
     }

@@ -2,7 +2,15 @@
 {
     public class CardService
     {
-        private readonly Dictionary<string, Dictionary<string, CardDetails>> _userCards = CreateSampleUserCards();
+        private readonly Dictionary<string, Dictionary<string, CardDetails>> _userCards;
+
+        private readonly ILogger _log;
+
+        public CardService(ILogger log)
+        {
+            _log = log;
+            _userCards = CreateSampleUserCards();
+        }
 
         public async Task<CardDetails?> GetCardDetails(string userId, string cardNumber)
         {
@@ -18,11 +26,15 @@
             return cardDetails;
         }
 
-        private static Dictionary<string, Dictionary<string, CardDetails>> CreateSampleUserCards()
+        private Dictionary<string, Dictionary<string, CardDetails>> CreateSampleUserCards()
         {
+            _log.LogInformation("Generating sample user cards");
             var userCards = new Dictionary<string, Dictionary<string, CardDetails>>();
             for (var i = 1; i <= 3; i++)
             {
+                var userId = $"User{i}";
+                _log.LogDebug("Generating cards for user {UserID}", userId);
+
                 var cards = new Dictionary<string, CardDetails>();
                 var cardIndex = 1;
                 foreach (CardType cardType in Enum.GetValues(typeof(CardType)))
@@ -30,16 +42,20 @@
                     foreach (CardStatus cardStatus in Enum.GetValues(typeof(CardStatus)))
                     {
                         var cardNumber = $"Card{i}{cardIndex}";
-                        cards.Add(cardNumber,
-                        new CardDetails(
-                        CardNumber: cardNumber,
-                        CardType: cardType,
-                        CardStatus: cardStatus,
-                        IsPinSet: cardIndex % 2 == 0));
+                        var cardDetails = new CardDetails(
+                                CardNumber: cardNumber,
+                                CardType: cardType,
+                                CardStatus: cardStatus,
+                                IsPinSet: cardIndex % 2 == 0);
+                        cards.Add(cardNumber, cardDetails);
+
+                        // we log card details here solely in order to make manual-testing this code easier
+                        _log.LogDebug("Generated card {CardNumber} for user {UserID} with type {CardType}, status {CardStatus} and IsPinSet {IsPinSet}",
+                            cardDetails.CardNumber, userId, cardDetails.CardType, cardDetails.CardStatus, cardDetails.IsPinSet);
+
                         cardIndex++;
                     }
                 }
-                var userId = $"User{i}";
                 userCards.Add(userId, cards);
             }
             return userCards;
