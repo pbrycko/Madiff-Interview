@@ -1,3 +1,21 @@
 @MadiffInterview_HostAddress = http://localhost:5133
 
+# Cases: user and cards exist
+GET {{MadiffInterview_HostAddress}}/user/User1/card/Card14/actions
 ###
+
+GET {{MadiffInterview_HostAddress}}/user/User3/card/Card37/actions
+###
+
+# Case: user exists, but the card doesn't
+GET {{MadiffInterview_HostAddress}}/user/User1/card/Card1999999/actions
+###
+
+# Case: user exists, but card belongs to another user
+GET {{MadiffInterview_HostAddress}}/user/User1/card/Card37/actions
+###
+
+# Case: user doesn't exist
+GET {{MadiffInterview_HostAddress}}/user/User4/card/Card42/actions
+###
+
