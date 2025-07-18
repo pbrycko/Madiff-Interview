@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36301.6 d17.14
+VisualStudioVersion = 17.14.36301.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MadiffInterview", "MadiffInterview\MadiffInterview.csproj", "{D239A6B4-A1CD-4CE0-9253-57CFBA4823E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MadiffInterview.UnitTests", "MadiffInterview.UnitTests\MadiffInterview.UnitTests.csproj", "{D57CE2D2-9B35-4215-B510-387B8149C037}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{D239A6B4-A1CD-4CE0-9253-57CFBA4823E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D239A6B4-A1CD-4CE0-9253-57CFBA4823E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D239A6B4-A1CD-4CE0-9253-57CFBA4823E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D57CE2D2-9B35-4215-B510-387B8149C037}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D57CE2D2-9B35-4215-B510-387B8149C037}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D57CE2D2-9B35-4215-B510-387B8149C037}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D57CE2D2-9B35-4215-B510-387B8149C037}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
