@@ -6,7 +6,7 @@
 
         private readonly ILogger _log;
 
-        public CardService(ILogger log)
+        public CardService(ILogger<CardService> log)
         {
             _log = log;
             _userCards = CreateSampleUserCards();
