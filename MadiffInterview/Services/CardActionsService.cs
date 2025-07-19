@@ -2,17 +2,17 @@
 {
     public class CardActionsService
     {
-        private readonly List<CardAction> _actions = new List<CardAction>();
+        private readonly IReadOnlyList<CardAction> _actions;
 
         public CardActionsService(IEnumerable<CardAction> actions)
         {
-            foreach (var action in actions)
+            var duplicateAction = actions.GroupBy(action => action.ActionName).FirstOrDefault(group => group.Count() > 1);
+            if (duplicateAction is not null)
             {
-                if (_actions.Any(a => a.ActionName == action.ActionName))
-                    throw new InvalidOperationException($"Action with name {action.ActionName} is registered more than once");
-
-                _actions.Add(action);
+                throw new InvalidOperationException($"Action with name {duplicateAction.Key} is registered more than once");
             }
+
+            _actions = actions.ToList();
         }
 
         public IEnumerable<CardAction> GetActionsForCard(CardDetails cardDetails)

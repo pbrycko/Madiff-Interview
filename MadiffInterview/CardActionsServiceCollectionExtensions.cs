@@ -90,7 +90,7 @@ namespace Microsoft.Extensions.DependencyInjection
             CardActionConditions conditions = new CardActionConditions();
             conditionsBuilder(conditions);
 
-            services.AddTransient(_=> new CardAction(actionName, conditions));
+            services.AddTransient(_ => new CardAction(actionName, conditions));
 
             return services;
         }
