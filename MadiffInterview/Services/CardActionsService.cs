@@ -3,8 +3,9 @@
     public class CardActionsService
     {
         private readonly IReadOnlyList<CardAction> _actions;
+        private readonly ILogger _log;
 
-        public CardActionsService(IEnumerable<CardAction> actions)
+        public CardActionsService(IEnumerable<CardAction> actions, ILogger<CardActionsService> log)
         {
             var duplicateAction = actions.GroupBy(action => action.ActionName).FirstOrDefault(group => group.Count() > 1);
             if (duplicateAction is not null)
@@ -13,12 +14,14 @@
             }
 
             _actions = actions.ToList();
+            _log = log;
         }
 
         public IEnumerable<CardAction> GetActionsForCard(CardDetails cardDetails)
         {
             ArgumentNullException.ThrowIfNull(cardDetails);
 
+            _log.LogInformation("Getting available actions for card {CardNumber}", cardDetails.CardNumber);
             return _actions.Where(action => action.IsCardAllowed(cardDetails));
         }
     }

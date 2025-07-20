@@ -1,4 +1,5 @@
 ﻿using MadiffInterview.Services;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace MadiffInterview.UnitTests
         public void WhenDuplicateActionNames_ShouldThrow()
         {
             // Arrange
+            var log = Substitute.For<ILogger<CardActionsService>>();
             var name = "foobar";
             var actions = new CardAction[] 
             {
@@ -21,7 +23,7 @@ namespace MadiffInterview.UnitTests
             };
 
             // Act
-            Func<CardActionsService> act = () => new CardActionsService(actions);
+            Func<CardActionsService> act = () => new CardActionsService(actions, log);
 
             // Assert
             act.Should().Throw<InvalidOperationException>();
@@ -31,6 +33,7 @@ namespace MadiffInterview.UnitTests
         public void WhenCardSatisfiesActionsConditions_ShouldReturnActions()
         {
             // Arrange
+            var log = Substitute.For<ILogger<CardActionsService>>();
             var card = new CardDetails("Card012", CardType.Credit, CardStatus.Active, IsPinSet: true);
             var actions = new CardAction[]
             {
@@ -38,7 +41,7 @@ namespace MadiffInterview.UnitTests
                 new CardAction("A2", new CardActionConditions().AllowAllCardTypes().AllowCardStatus(CardStatus.Active)),
                 new CardAction("A3", new CardActionConditions().AllowAllCardTypes().AllowCardStatus(CardStatus.Active, card => card.IsPinSet))
             };
-            var service = new CardActionsService(actions);
+            var service = new CardActionsService(actions, log);
 
             // Act
             var results = service.GetActionsForCard(card);
@@ -52,6 +55,7 @@ namespace MadiffInterview.UnitTests
         public void WhenCardDoesNotSatisfyActionsConditions_ShouldNotReturnActions()
         {
             // Arrange
+            var log = Substitute.For<ILogger<CardActionsService>>();
             var card = new CardDetails("Card012", CardType.Credit, CardStatus.Active, IsPinSet: true);
             var actions = new CardAction[]
             {
@@ -59,7 +63,7 @@ namespace MadiffInterview.UnitTests
                 new CardAction("A2", new CardActionConditions().AllowAllCardTypes().AllowCardStatus(CardStatus.Blocked)),
                 new CardAction("A3", new CardActionConditions().AllowAllCardTypes().AllowCardStatus(CardStatus.Active, card => !card.IsPinSet))
             };
-            var service = new CardActionsService(actions);
+            var service = new CardActionsService(actions, log);
 
             // Act
             var results = service.GetActionsForCard(card);
